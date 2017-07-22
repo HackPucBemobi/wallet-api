@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    username: bemobi
+    password: 123qwe
+    url: jdbc:postgresql://139.82.243.175:5432/hackpucdb
+    driverClassName: org.postgresql.Driver
+
