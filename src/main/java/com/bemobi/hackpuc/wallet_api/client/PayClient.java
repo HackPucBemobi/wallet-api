@@ -4,10 +4,7 @@ import com.bemobi.hackpuc.wallet_api.domain.dto.*;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,7 +22,7 @@ public class PayClient {
     @Value("${application.pay.host}")
     private String host;
 
-    private final String TOKEN_PATH = "token";
+    private final String TOKEN_PATH = "token/";
 
     private final String TOKEN_PAYMENT_PATH = "token/payment";
 
@@ -78,6 +75,19 @@ public class PayClient {
         }
 
         return responses;
+    }
+
+    public CreditCardTokenDTO getCreditCardByToken(String token, String merchantId, String merchantKey) {
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("MerchantId", merchantId);
+        headers.set("MerchantKey", merchantKey);
+
+        HttpEntity<Result> entity = new HttpEntity(headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(host + TOKEN_PATH + token, HttpMethod.GET, entity, String.class);
+
+        return gson.fromJson(responseEntity.getBody(), CreditCardTokenDTO.class);
     }
 
 }

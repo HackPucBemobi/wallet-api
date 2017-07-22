@@ -9,7 +9,8 @@ import lombok.Data;
  */
 @Data
 public class CreditCardDTO {
-
+    @Expose
+    private Long id;
     @SerializedName("cardNumber")
     @Expose
     private String cardNumber;

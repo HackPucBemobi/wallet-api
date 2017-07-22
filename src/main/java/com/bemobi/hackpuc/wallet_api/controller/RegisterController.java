@@ -57,15 +57,35 @@ public class RegisterController {
     }
 
     @GetMapping(value = "/customer/{idFinger}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Customer> findCostumersByFinger(@PathVariable Integer idFinger) {
+    public ResponseEntity<CustomerDTO> findCostumersByFinger(@PathVariable Integer idFinger,
+                                                          @RequestHeader("MerchantId") String merchantId,
+                                                          @RequestHeader("MerchantKey") String merchantKey) {
 
-        Customer custumer = new Customer();
-        custumer = customerRepository.findByFingerId(idFinger);
+        final Customer customer = customerRepository.findByFingerId(idFinger);
 
-        if (custumer == null) {
+        List<CreditCard> creditCards = customer.getCreditCards();
+
+        List<CreditCardTokenDTO> resultCards = creditCards.stream().map(creditCard -> {
+            CreditCardTokenDTO creditCardByToken = payClient.getCreditCardByToken(creditCard.getCardToken(), merchantId, merchantKey);
+            //CreditCardDTO creditCardDTO = new CreditCardDTO();
+            //creditCardDTO.setCardNumber(creditCardByToken.getCardNumber());
+            //creditCardDTO.setBrand(creditCard.getBrand());
+            //creditCardDTO.setId(creditCard.getId());
+            creditCardByToken.setId(creditCard.getId());
+            creditCardByToken.setBrand(creditCard.getBrand());
+            return creditCardByToken;
+        }).collect(Collectors.toList());
+
+        if (customer == null) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok().body(custumer);
+            CustomerDTO customerResult = new CustomerDTO();
+            customerResult.setName(customer.getName());
+            customerResult.setPassword(customer.getPassword());
+            customerResult.setCreditCards(resultCards);
+            customerResult.setFingerId(customer.getFingerId());
+
+            return ResponseEntity.ok().body(customerResult);
         }
     }
 
