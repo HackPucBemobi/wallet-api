@@ -9,7 +9,6 @@ import com.bemobi.hackpuc.wallet_api.repository.CustomerRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.plugin.javascript.navig.Array;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
