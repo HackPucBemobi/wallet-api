@@ -2,7 +2,7 @@ spring:
   datasource:
     username: bemobi
     password: 123qwe
-    url: jdbc:postgresql://139.82.243.175:5432/hackpucdb
+    url: jdbc:postgresql://localhost:5432/hackpucdb
     driverClassName: org.postgresql.Driver
 
 server:
@@ -11,4 +11,4 @@ server:
 
 application:
   pay:
-    host: http://139.82.243.175:8080/
+    host: http://localhost:8080/
