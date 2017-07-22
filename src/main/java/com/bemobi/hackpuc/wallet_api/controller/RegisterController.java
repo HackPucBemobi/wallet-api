@@ -9,7 +9,6 @@ import com.bemobi.hackpuc.wallet_api.repository.CustomerRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.util.resources.cldr.fr.CalendarData_fr_RE;
 
 import javax.inject.Inject;
 import java.net.URI;
