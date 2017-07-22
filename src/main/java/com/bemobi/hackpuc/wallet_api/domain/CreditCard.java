@@ -35,8 +35,8 @@ public class CreditCard {
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "costumer_id")
-    private Costumer costumer;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @Override
     public String toString() {

@@ -11,8 +11,8 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name="costumer")
-public class Costumer {
+@Table(name="customer")
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -27,12 +27,12 @@ public class Costumer {
     @Column(name = "id_finger")
     private Integer fingerId;
 
-    @OneToMany(mappedBy = "costumer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CreditCard> creditCards;
 
     @Override
     public String toString() {
-        return "Costumer{" +
+        return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

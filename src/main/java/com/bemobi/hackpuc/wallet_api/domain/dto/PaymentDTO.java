@@ -1,5 +1,6 @@
 package com.bemobi.hackpuc.wallet_api.domain.dto;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -7,97 +8,72 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * Created by alessandro.santos on 7/21/17.
+ * Created by alessandro.santos on 7/22/17.
  */
-
 @Data
 public class PaymentDTO {
-
-    @SerializedName("ServiceTaxAmount")
+    @SerializedName("serviceTaxAmount")
     @Expose
     private Integer serviceTaxAmount;
-
-    @SerializedName("Installments")
+    @SerializedName("installments")
     @Expose
     private Integer installments;
-
-    @SerializedName("Interest")
+    @SerializedName("interest")
     @Expose
     private Integer interest;
-
-    @SerializedName("Capture")
+    @SerializedName("capture")
     @Expose
     private Boolean capture;
-
-    @SerializedName("Authenticate")
+    @SerializedName("authenticate")
     @Expose
     private Boolean authenticate;
-
-    @SerializedName("Recurrent")
+    @SerializedName("recurrent")
     @Expose
     private Boolean recurrent;
-
-    @SerializedName("CreditCard")
+    @SerializedName("creditCard")
     @Expose
-    private CreditCardDTO creditCardDTO;
-
-    @SerializedName("Tid")
+    private CreditCardDTO creditCard;
+    @SerializedName("tid")
     @Expose
     private String tid;
-
-    @SerializedName("ProofOfSale")
+    @SerializedName("proofOfSale")
     @Expose
     private String proofOfSale;
-
-    @SerializedName("AuthorizationCode")
+    @SerializedName("authorizationCode")
     @Expose
     private String authorizationCode;
-
-    @SerializedName("SoftDescriptor")
+    @SerializedName("softDescriptor")
     @Expose
     private String softDescriptor;
-
-    @SerializedName("Provider")
+    @SerializedName("provider")
     @Expose
     private String provider;
-
-    @SerializedName("PaymentId")
+    @SerializedName("paymentId")
     @Expose
     private String paymentId;
-
-    @SerializedName("Type")
+    @SerializedName("type")
     @Expose
     private String type;
-
-    @SerializedName("Amount")
+    @SerializedName("amount")
     @Expose
     private Integer amount;
-
-    @SerializedName("ReceivedDate")
+    @SerializedName("receivedDate")
     @Expose
     private String receivedDate;
-
-    @SerializedName("Currency")
+    @SerializedName("currency")
     @Expose
     private String currency;
-
-    @SerializedName("Country")
+    @SerializedName("country")
     @Expose
     private String country;
-
-    @SerializedName("ReturnCode")
+    @SerializedName("returnCode")
     @Expose
     private String returnCode;
-
-    @SerializedName("ReturnMessage")
+    @SerializedName("returnMessage")
     @Expose
     private String returnMessage;
-
-    @SerializedName("Status")
+    @SerializedName("status")
     @Expose
     private Integer status;
 
-    @SerializedName("Links")
-    @Expose
-    private List<LinkDTO> links = null;
 }

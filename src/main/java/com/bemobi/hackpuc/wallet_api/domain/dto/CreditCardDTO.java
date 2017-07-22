@@ -1,36 +1,31 @@
 package com.bemobi.hackpuc.wallet_api.domain.dto;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
- * Created by alessandro.santos on 7/21/17.
+ * Created by alessandro.santos on 7/22/17.
  */
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 @Data
 public class CreditCardDTO {
 
-    @SerializedName("CardNumber")
+    @SerializedName("cardNumber")
     @Expose
     private String cardNumber;
-    @SerializedName("Holder")
+    @SerializedName("holder")
     @Expose
     private String holder;
-    @SerializedName("ExpirationDate")
+    @SerializedName("expirationDate")
     @Expose
     private String expirationDate;
-    @SerializedName("SaveCard")
+    @SerializedName("saveCard")
     @Expose
     private Boolean saveCard;
-    @SerializedName("Brand")
+    @SerializedName("brand")
     @Expose
     private String brand;
-    @SerializedName("SecurityCode")
+    @SerializedName("securityCode")
     @Expose
     private String securityCode;
 }
