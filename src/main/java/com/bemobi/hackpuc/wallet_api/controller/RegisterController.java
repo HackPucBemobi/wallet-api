@@ -9,12 +9,15 @@ import com.bemobi.hackpuc.wallet_api.repository.CustomerRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.plugin.javascript.navig.Array;
+import sun.util.resources.cldr.fr.CalendarData_fr_RE;
 
 import javax.inject.Inject;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Created by hcfonseca on 7/21/17.
@@ -69,9 +72,9 @@ public class RegisterController {
 
     @PostMapping(value = "/creditCard/{idCreditCard}/transaction/{value}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Result> doTransaction(@PathVariable Long idCreditCard,
-                                                    @PathVariable Integer value,
-                                                  @RequestHeader("MerchantId") String merchantId,
-                                                  @RequestHeader("MerchantKey") String merchantKey) {
+                                                @PathVariable Integer value,
+                                                @RequestHeader("MerchantId") String merchantId,
+                                                @RequestHeader("MerchantKey") String merchantKey) {
 
 
         CreditCard creditCard = new CreditCard();
@@ -80,19 +83,17 @@ public class RegisterController {
         CustomerDTO customer = new CustomerDTO();
         customer.setName(creditCard.getCustomer().getName());
 
-        CreditCardDTO creditCardDTO = new CreditCardDTO();
-        creditCardDTO.setCardNumber(creditCard.getCardNumber());
-        creditCardDTO.setHolder(creditCard.getHolder());
-        creditCardDTO.setExpirationDate(creditCard.getExpirationDate());
-        creditCardDTO.setSecurityCode(creditCard.getSecurityCode());
-        creditCardDTO.setBrand(creditCard.getBrand());
+        CreditCardDTO ccDTO = new CreditCardDTO();
+        ccDTO.setCardToken(creditCard.getCardToken());
+        ccDTO.setBrand(creditCard.getBrand());
+        ccDTO.setSecurityCode(creditCard.getSecurityCode());
 
         PaymentDTO payment = new PaymentDTO();
         payment.setType("CreditCard");
         payment.setAmount(value);
         payment.setInstallments(1);
         payment.setSoftDescriptor("123456789ABCD");
-        payment.setCreditCard(creditCardDTO);
+        payment.setCreditCard(ccDTO);
 
         PaymentRequestDTO paymentRequest = new PaymentRequestDTO();
         paymentRequest.setMerchantId(merchantId);
@@ -109,6 +110,31 @@ public class RegisterController {
         } else {
             return ResponseEntity.ok().body(result);
         }
+    }
+
+    @PostMapping(value = "/customer", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Customer> saveCostumerWithCreditCards(
+                                                              @RequestBody CreateCustomerRequestDTO customerDTO,
+                                                              @RequestHeader("MerchantId") String merchantId,
+                                                              @RequestHeader("MerchantKey") String merchantKey
+                                                              ) throws URISyntaxException{
+
+        List<CreateCustomerResponseDTO> response = payClient.generateToken(customerDTO, merchantId, merchantKey);
+
+        Customer customer = new Customer();
+        customer.setName(customerDTO.getName());
+        customer.setPassword(customerDTO.getPassword());
+        customer.setFingerId(customerDTO.getIdFinger());
+
+        List<CreditCard> creditCards = response
+                .stream()
+                .map(item -> new CreditCard(null, item.getCardToken(), item.getBrand(), customer, item.getSecurityCode()))
+                .collect(Collectors.toList());
+
+        customer.setCreditCards(creditCards);
+
+        customerRepository.save(customer);
+        return ResponseEntity.created(new URI("/costumer")).body(customer);
     }
 
 }

@@ -15,12 +15,11 @@ import java.util.List;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_seq")
+    @SequenceGenerator(name="customer_id_seq", sequenceName="customer_id_seq", allocationSize=1)
     private Long id;
 
     private String name;
-
-    private String email;
 
     private String password;
 
@@ -35,7 +34,6 @@ public class Customer {
         return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", fingerId=" + fingerId +
                 '}';

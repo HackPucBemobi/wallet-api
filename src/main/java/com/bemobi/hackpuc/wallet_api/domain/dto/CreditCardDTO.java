@@ -19,13 +19,14 @@ public class CreditCardDTO {
     @SerializedName("expirationDate")
     @Expose
     private String expirationDate;
-    @SerializedName("saveCard")
-    @Expose
-    private Boolean saveCard;
     @SerializedName("brand")
     @Expose
     private String brand;
     @SerializedName("securityCode")
     @Expose
     private String securityCode;
+    @SerializedName("cardToken")
+    @Expose
+    private String cardToken;
+
 }
