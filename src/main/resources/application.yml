@@ -6,4 +6,4 @@ spring:
     driverClassName: org.postgresql.Driver
 
 server:
-  context-server: walletapi
+  context-path: /walletapi

@@ -1,13 +1,13 @@
 package com.bemobi.hackpuc.wallet_api.controller;
 
 import com.bemobi.hackpuc.wallet_api.domain.Costumer;
+import com.bemobi.hackpuc.wallet_api.domain.CreditCard;
 import com.bemobi.hackpuc.wallet_api.repository.CostumerRepository;
 import com.bemobi.hackpuc.wallet_api.repository.CreditCardRepository;
-import com.bemobi.hackpuc.wallet_api.repository.FooRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sun.plugin.javascript.navig.Array;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -44,6 +44,19 @@ public class RegisterController {
         final Iterable<Costumer> all = costumerRepository.findAll();
         all.forEach(resultList::add);
         return ResponseEntity.ok().body(resultList);
+    }
+
+    @GetMapping(value = "/costumer/{idFinger}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Costumer> findCostumersByFinger(@PathVariable Integer idFinger) {
+
+        Costumer costumer = new Costumer();
+        costumer = costumerRepository.findByFingerId(idFinger);
+
+        if (costumer == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(costumer);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.bemobi.hackpuc.wallet_api.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -27,12 +28,25 @@ public class CreditCard {
     @Column(name = "expiration_date")
     private String expirationDate;
 
-    @Column(name = "save_card")
-    private Boolean saveCard;
-
     private String brand;
 
     @Column(name = "security_code")
     private String securityCode;
 
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "costumer_id")
+    private Costumer costumer;
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "id=" + id +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", holder='" + holder + '\'' +
+                ", expirationDate='" + expirationDate + '\'' +
+                ", brand='" + brand + '\'' +
+                ", securityCode='" + securityCode + '\'' +
+                '}';
+    }
 }

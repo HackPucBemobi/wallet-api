@@ -7,4 +7,7 @@ import org.springframework.data.repository.CrudRepository;
  * Created by hcfonseca on 7/21/17.
  */
 public interface CostumerRepository extends CrudRepository<Costumer, Long> {
+
+    Costumer findByFingerId(Integer fingerId);
+
 }

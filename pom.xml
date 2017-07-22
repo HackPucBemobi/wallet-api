@@ -49,7 +49,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.inject</groupId>
+			<groupId>javax.inject</groupId>a
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>

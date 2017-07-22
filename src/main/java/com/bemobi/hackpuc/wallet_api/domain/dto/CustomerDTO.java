@@ -11,9 +11,7 @@ import javax.persistence.Table;
  * Created by alessandro.santos on 7/21/17.
  */
 
-@Entity
 @Data
-@Table(name="costumer")
 public class CustomerDTO {
 
     @SerializedName("Name")
