@@ -23,6 +23,7 @@ public class CustomerDTO {
 
     private Integer fingerId;
 
-    //private List<CreditCardDTO> creditCards;
+    private String email;
+
     private List<CreditCardTokenDTO> creditCards;
 }

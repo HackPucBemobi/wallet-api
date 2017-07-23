@@ -67,10 +67,6 @@ public class RegisterController {
 
         List<CreditCardTokenDTO> resultCards = creditCards.stream().map(creditCard -> {
             CreditCardTokenDTO creditCardByToken = payClient.getCreditCardByToken(creditCard.getCardToken(), merchantId, merchantKey);
-            //CreditCardDTO creditCardDTO = new CreditCardDTO();
-            //creditCardDTO.setCardNumber(creditCardByToken.getCardNumber());
-            //creditCardDTO.setBrand(creditCard.getBrand());
-            //creditCardDTO.setId(creditCard.getId());
             creditCardByToken.setId(creditCard.getId());
             creditCardByToken.setBrand(creditCard.getBrand());
             return creditCardByToken;
@@ -84,6 +80,7 @@ public class RegisterController {
             customerResult.setPassword(customer.getPassword());
             customerResult.setCreditCards(resultCards);
             customerResult.setFingerId(customer.getFingerId());
+            customerResult.setEmail(customer.getEmail());
 
             return ResponseEntity.ok().body(customerResult);
         }
@@ -132,7 +129,7 @@ public class RegisterController {
     }
 
     @PostMapping(value = "/customer", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Customer> saveCostumerWithCreditCards(
+    public ResponseEntity<Customer> saveCustomerWithCreditCards(
                                                               @RequestBody CreateCustomerRequestDTO customerDTO,
                                                               @RequestHeader("MerchantId") String merchantId,
                                                               @RequestHeader("MerchantKey") String merchantKey
@@ -144,6 +141,7 @@ public class RegisterController {
         customer.setName(customerDTO.getName());
         customer.setPassword(customerDTO.getPassword());
         customer.setFingerId(customerDTO.getIdFinger());
+        customer.setEmail(customerDTO.getEmail());
 
         List<CreditCard> creditCards = response
                 .stream()

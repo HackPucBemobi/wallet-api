@@ -26,6 +26,8 @@ public class Customer {
     @Column(name = "id_finger")
     private Integer fingerId;
 
+    private String email;
+
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CreditCard> creditCards;
 

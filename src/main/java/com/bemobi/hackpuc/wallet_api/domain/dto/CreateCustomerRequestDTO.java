@@ -17,6 +17,8 @@ public class CreateCustomerRequestDTO {
 
     private Integer idFinger;
 
+    private String email;
+
     private List<CreditCardDTO> creditCards;
 
 }
